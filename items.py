@@ -13,8 +13,4 @@ class Wallet:
         self.outgoingTXS = outgoingTXS
 
 
-class Transaction:
-    def __init__(self, trxID, date=None, amount=None):
-        self.trxID = trxID
-        self.date = date
-        self.amount = amount
+

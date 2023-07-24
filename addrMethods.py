@@ -1,21 +1,24 @@
-from items import Wallet, Transaction
 from supportMethods import getSoup
+from items import Wallet
 
 
 """
 https://walletexplorer.com
-methods to retreive details regarding crypto addresses
+methods to retreive details regarding Bitcoin addresses
 """
 
 class Address:
     def __init__(self, addrID, balance=None, incomingTXS=None, outgoingTXS=None):
+        """
+        :input: address
+        :output: balance, incomingTXS, outgoingTXS
+        """
         self.addrID = addrID
         if not balance or not incomingTXS or not outgoingTXS:
             balance, incomingTXS, outgoingTXS = self._getDetails(addrID)
-        else:
-            self.balance = balance
-            self.incomingTXS = incomingTXS
-            self.outgoingTXS = outgoingTXS
+        self.balance = balance
+        self.incomingTXS = incomingTXS
+        self.outgoingTXS = outgoingTXS
 
     def _getDetails(self, addr):
         """
@@ -123,6 +126,7 @@ class Address:
 
 
     def outputTransactions(self):
+        from transactionMethods import Transaction
         """
         :input: address
         :output: list of output transactions
@@ -159,6 +163,7 @@ class Address:
 
 
     def inputTransactions(self):
+        from transactionMethods import Transaction
         """
         :input: address
         :output: list of input transactions
