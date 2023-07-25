@@ -1,4 +1,4 @@
-from supportMethods import getSoup
+from supportMethods import MAX_CALLS, getSoup
 from items import Wallet
 
 
@@ -40,13 +40,15 @@ class Address:
         walletID = href.split('/')[2]
 
         # extract pages to scan
+        url = f'https://walletexplorer.com/wallet/{walletID}/addresses'
+        soup = getSoup(url)
         target_text = soup.find(class_='paging')
         pages = int(target_text.text.split('/ ')[1].split(' ')[0])
 
         # find addr in wallet
         page = 1
         target_text = []
-        while page <= pages:
+        while page <= pages and page <= MAX_CALLS:
             # get relevant page
             url = f'https://walletexplorer.com/wallet/{walletID}/addresses?page={page}'
             soup = getSoup(url)
@@ -58,7 +60,7 @@ class Address:
                 target_text = target_text[0]
                 break
         if not target_text:
-            return None
+            return None, None, None
         
         # extract balance and incoming txs
         balance = float(target_text.find(class_='amount').text)

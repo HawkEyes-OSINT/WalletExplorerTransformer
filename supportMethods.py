@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 support methods to be used by main methods
 """
 
+MAX_CALLS = 10
+
 def getSoup(url):
     """
     get soup from url

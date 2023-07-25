@@ -1,4 +1,4 @@
-from supportMethods import getSoup
+from supportMethods import MAX_CALLS, getSoup
 
 
 """
@@ -22,7 +22,7 @@ class Transaction:
         self.date = date
         self.amount = amount
 
-    # incomplete
+    
     def _getDetails(self, trxID):
         """
         get transaction details
@@ -36,7 +36,7 @@ class Transaction:
         soup = getSoup(url)
 
         # extract date
-        time = soup.find('th', text='Time')
+        time = soup.find('th', string='Time')
         date = time.find_next_sibling('td').text.strip()
 
         # extract amount
@@ -47,51 +47,145 @@ class Transaction:
         return date, amount
     
 
-    # incomplete
+    
     def toInputAddr(self):
+        from addrMethods import Address
         """
         get input address
-        :return: input address
+        :return: list of dictionaries with input addresses and amounts
         """
-        addr = ''
-        return addr
+        addr_list = []
+
+        # get soup
+        trid = self.trxID
+        url = f'https://walletexplorer.com/txid/{trid}'
+        soup = getSoup(url)
+
+        # get input count
+        input_count = soup.find('b').text.strip()
+        input_count = int(input_count.split(' ')[1])
+
+        # extract input addresses
+        target_text = soup.findAll('a', href=lambda href: href and href.startswith('/address/'))
+        input_addresses = [addr for addr in target_text[:input_count]]
+        if len(input_addresses) > MAX_CALLS:
+            return addr_list
+        for addr in input_addresses:
+            address = Address(addr.text.strip())
+            amount = addr.next.next.text.strip()
+            addr_list.append({'addr': address, 'amount': amount})
+
+        return addr_list
 
 
-    # incomplete
+    
     def toOutputAddr(self):
+        from addrMethods import Address
         """
         get output address
-        :return: output address
+        :return: output address, amount
         """
-        addr = ''
-        return addr
+        addr_list = []
+
+        # get soup
+        trid = self.trxID
+        url = f'https://walletexplorer.com/txid/{trid}'
+        soup = getSoup(url)
+
+        # get input count
+        input_count = soup.find('b').text.strip()
+        input_count = int(input_count.split(' ')[1])
+
+        # extract output addresses
+        target_text = soup.findAll('a', href=lambda href: href and href.startswith('/address/'))
+        output_addresses = [addr for addr in target_text[input_count:]]
+        if len(output_addresses) > MAX_CALLS:
+            return addr_list
+        for addr in output_addresses:
+            address = Address(addr.text.strip())
+            amount = addr.next.next.next.next.next.next.text.strip()
+            amount = amount.replace('\xa0', '')
+            if amount[-3:] == 'BTC':
+                addr_list.append({'addr': address, 'amount': amount})
+
+        return addr_list
     
 
-    # incomplete
     def toInputWallet(self):
+        from items import Wallet
         """
         get input wallet
-        :return: input wallet
+        :return: input wallet, amount
         """
-        wallet = ''
-        return wallet
+        # get soup
+        trid = self.trxID
+        url = f'https://walletexplorer.com/txid/{trid}'
+        soup = getSoup(url)
+
+        # extract wallet
+        target_text = soup.find('a', href=lambda href: href and href.startswith('/wallet/'))
+        wallet = target_text['href'].split('/')[-1]
+        wallet = Wallet(wallet)
+
+        # extract amount
+        amount = soup.find('span', style='font-weight: normal;')
+        amount = amount.text.split('(')[1].split(')')[0]
+
+        return {'wallet': wallet, 'amount': amount}
     
 
-    # incomplete
     def toOutputWallet(self):
+        from items import Wallet
         """
         get output wallet
-        :return: output wallet
+        :return: input wallet, amount
         """
-        wallet = ''
-        return wallet
+        wallet_list = []
+
+        # get soup
+        trid = self.trxID
+        url = f'https://walletexplorer.com/txid/{trid}'
+        soup = getSoup(url)
+
+        # extract wallet and amount
+        target_text = soup.findAll('a', href=lambda href: href and href.startswith('/wallet/'))[1:]
+        if len(target_text) > MAX_CALLS:
+            return wallet_list
+        for target in target_text:
+            wallet = target['href'].split('/')[-1]
+            amount = target.next.next.next.text.strip()
+            amount = amount.replace('\xa0', '')
+            wallet_list.append({'wallet': Wallet(wallet), 'amount': amount})
+        
+        return wallet_list
     
 
 """
 Test Code
 """
-tid = 'e64647ba5bd13e7e0214ef1554456103643b84dd00e51b0fc718bd07fe3b8e51'
+tid = '5dd65f6a00f982e7bc03d97c342b3826dcf37273e9efbf4aa210fc68168969e5'
 transaction = Transaction(tid)
-print('tid: ', transaction.trxID)
-print('date: ', transaction.date)
-print('amount: ', transaction.amount)
+
+# # getDetails
+# print('tid: ', transaction.trxID)
+# print('date: ', transaction.date)
+# print('amount: ', transaction.amount)
+
+# # toInputAddr
+# input_addr = transaction.toInputAddr()
+# for addr in input_addr:
+#     print(addr)
+
+# # toOutputAddr
+# output_addr = transaction.toOutputAddr()
+# for addr in output_addr:
+#     print(addr)
+
+# # toInputWallet
+# input_wallet = transaction.toInputWallet()
+# print(input_wallet)
+
+# # toOutputWallets
+# output_wallets = transaction.toOutputWallet()
+# for wallet in output_wallets:
+#     print(wallet)
