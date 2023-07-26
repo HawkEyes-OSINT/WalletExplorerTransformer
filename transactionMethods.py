@@ -14,7 +14,7 @@ class Transaction:
         :param amount: amount of transaction
         """
         from addrMethods import Address
-        from items import Wallet
+        from walletMethods import Wallet
 
         if not date or not amount:
             date, amount = self._getDetails(trxID)        
@@ -163,8 +163,8 @@ class Transaction:
 """
 Test Code
 """
-tid = '5dd65f6a00f982e7bc03d97c342b3826dcf37273e9efbf4aa210fc68168969e5'
-transaction = Transaction(tid)
+# tid = '5dd65f6a00f982e7bc03d97c342b3826dcf37273e9efbf4aa210fc68168969e5'
+# transaction = Transaction(tid)
 
 # # getDetails
 # print('tid: ', transaction.trxID)

@@ -1,5 +1,4 @@
 from supportMethods import MAX_CALLS, getSoup
-from items import Wallet
 
 
 """
@@ -72,6 +71,7 @@ class Address:
         return balance, incomingTXS, outgoingTXS
 
     def toWallet(self):
+        from walletMethods import Wallet
         """
         :input: address
         :output: wallet entity
