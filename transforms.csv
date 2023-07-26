@@ -1,0 +1,5 @@
+Owner,Author,Disclaimer,Description,Version,Name,UIName,URL,entityName,oAuthSettingId,transformSettingIDs,seedIDs,outputEntities
+HawkEyes,Hawk Dev,,Get details about a Bitcoin address.,0.1.0,addrdetails,Address Details,https://hawk-eyes.com/run/addrdetails,maltego.BTCAddress,,,demo,maltego.BTCAddress
+HawkEyes,Hawk Dev,,Get input transactions from an address,0.1.0,addrtointxs,In Transactions,https://hawk-eyes.com/run/addrtointxs,maltego.BTCAddress,,,demo,BTCTransaction
+HawkEyes,Hawk Dev,,Get output transactions from an address,0.1.0,addrtoouttxs,Out Transactions,https://hawk-eyes.com/run/addrtoouttxs,maltego.BTCAddress,,,demo,BTCTransaction
+HawkEyes,Hawk Dev,,Get wallet information from address,0.1.0,addrtowallet,To Wallet,https://hawk-eyes.com/run/addrtowallet,maltego.BTCAddress,,,demo,hawkdev.BitcoinWallet;maltego.BTCAddress

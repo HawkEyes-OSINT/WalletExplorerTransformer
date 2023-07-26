@@ -8,4 +8,4 @@ registry = TransformRegistry(
     seed_ids=["demo"]
 )
 
-URLscraper_set = TransformSet("WalletExplorer", "WalletExplorer Transforms")
+WalletExplorer_set = TransformSet("WalletExplorer", "WalletExplorer Transforms")
