@@ -1,5 +1,13 @@
 Owner,Author,Disclaimer,Description,Version,Name,UIName,URL,entityName,oAuthSettingId,transformSettingIDs,seedIDs,outputEntities
 HawkEyes,Hawk Dev,,Get details about a Bitcoin address.,0.1.0,addrdetails,Address Details,https://hawk-eyes.com/run/addrdetails,maltego.BTCAddress,,,demo,maltego.BTCAddress
 HawkEyes,Hawk Dev,,Get input transactions from an address,0.1.0,addrtointxs,In Transactions,https://hawk-eyes.com/run/addrtointxs,maltego.BTCAddress,,,demo,BTCTransaction
-HawkEyes,Hawk Dev,,Get output transactions from an address,0.1.0,addrtoouttxs,Out Transactions,https://hawk-eyes.com/run/addrtoouttxs,maltego.BTCAddress,,,demo,BTCTransaction
+HawkEyes,Hawk Dev,,Get output transactions from an address,0.1.0,addrtoouttxs,Out Transactions,https://hawk-eyes.com/run/addrtoouttxs,maltego.BTCAddress,,,demo,maltego.BTCTransaction
 HawkEyes,Hawk Dev,,Get wallet information from address,0.1.0,addrtowallet,To Wallet,https://hawk-eyes.com/run/addrtowallet,maltego.BTCAddress,,,demo,hawkdev.BitcoinWallet;maltego.BTCAddress
+HawkEyes,Hawk Dev,,Get details regarding BTC transaction,0.1.0,trxdetails,Transaction Details,https://hawk-eyes.com/run/trxdetails,maltego.BTCTransaction,,,demo,maltego.BTCTransaction
+HawkEyes,Hawk Dev,,Get input addresses of transaction,0.1.0,trxtoinaddr,To Input Addr,https://hawk-eyes.com/run/trxtoinaddr,maltego.BTCTransaction,,,demo,maltego.BTCAddress
+HawkEyes,Hawk Dev,,Get input wallet of transaction,0.1.0,trxtoinwallet,To Input Wallet,https://hawk-eyes.com/run/trxtoinwallet,maltego.BTCTransaction,,,demo,hawkdev.BitcoinWallet
+HawkEyes,Hawk Dev,,Get output addresses of transaction,0.1.0,trxtooutaddr,To Output Addr,https://hawk-eyes.com/run/trxtooutaddr,maltego.BTCTransaction,,,demo,maltego.BTCAddress
+HawkEyes,Hawk Dev,,Get output wallet of transaction,0.1.0,trxtooutwallet,To Output Wallet,https://hawk-eyes.com/run/trxtooutwallet,maltego.BTCTransaction,,,demo,hawkdev.BitcoinWallet
+HawkEyes,Hawk Dev,,Get details about a Bitcoin wallet.,0.1.0,walletdetails,Wallet Details,https://hawk-eyes.com/run/walletdetails,hawkdev.BitcoinWallet,,,demo,hawkdev.BitcoinWallet
+HawkEyes,Hawk Dev,,Get input transactions for a wallet,0.1.0,wallettoin,Input Transactions,https://hawk-eyes.com/run/wallettoin,hawkdev.BitcoinWallet,,,demo,maltego.BTCTransaction
+HawkEyes,Hawk Dev,,Get output transactions for a wallet,0.1.0,wallettoout,Output Transactions,https://hawk-eyes.com/run/wallettoout,hawkdev.BitcoinWallet,,,demo,maltego.BTCTransaction

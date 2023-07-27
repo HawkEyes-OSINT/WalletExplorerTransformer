@@ -7,7 +7,7 @@ from addrMethods import Address
 @registry.register_transform(display_name="Out Transactions",
                              input_entity="maltego.BTCAddress",
                              description="Get output transactions from an address",
-                             output_entities=["BTCTransaction"],
+                             output_entities=["maltego.BTCTransaction"],
                              transform_set=WalletExplorer_set)
 class addrTOouttxs(DiscoverableTransform):
 

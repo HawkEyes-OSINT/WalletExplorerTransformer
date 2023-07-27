@@ -58,7 +58,7 @@ class Wallet:
 
         return balance, incomingTXS, outgoingTXS
     
-    # incomplete
+    
     def ouputTransactions(self):
         from transactionMethods import Transaction
         """

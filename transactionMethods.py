@@ -32,7 +32,7 @@ class Transaction:
         amount = ''
 
         # get soup
-        url = f'https://walletexplorer.com/txid/{tid}'
+        url = f'https://walletexplorer.com/txid/{trxID}'
         soup = getSoup(url)
 
         # extract date
@@ -73,7 +73,9 @@ class Transaction:
         for addr in input_addresses:
             address = Address(addr.text.strip())
             amount = addr.next.next.text.strip()
-            addr_list.append({'addr': address, 'amount': amount})
+            amount = amount.replace('\xa0', '')
+            if amount[-3:] == 'BTC':
+                addr_list.append({'addr': address, 'amount': amount})
 
         return addr_list
 
@@ -112,7 +114,7 @@ class Transaction:
     
 
     def toInputWallet(self):
-        from items import Wallet
+        from walletMethods import Wallet
         """
         get input wallet
         :return: input wallet, amount
@@ -135,7 +137,7 @@ class Transaction:
     
 
     def toOutputWallet(self):
-        from items import Wallet
+        from walletMethods import Wallet
         """
         get output wallet
         :return: input wallet, amount
